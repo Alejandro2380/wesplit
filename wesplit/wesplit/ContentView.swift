@@ -15,7 +15,7 @@ struct ContentView: View {
     var totalPerPerson: Double{
         let tipSelection = Double(tipPercentage)
         let peopleCount = Double(numberOfPeople + 2)
-        let tipValue = checkAmount / 100 * tipSelection;
+        let tipValue = checkAmount * (tipSelection/100);
         let grandTotal = checkAmount + tipValue;
         let amountPerPerson = grandTotal / peopleCount;
         return amountPerPerson;
@@ -24,6 +24,7 @@ struct ContentView: View {
         NavigationView {
         Form {
             Section {
+                Text("Check Total")
                 TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
                     .keyboardType(.decimalPad)
                 Picker("Tip Percentage", selection: $tipPercentage){
@@ -40,7 +41,8 @@ struct ContentView: View {
             } header : {
                 Text("How much tip do you wnat to leave?")
             }
-            Section {
+            Section
+            {   Text("Total per person")
                 Text(totalPerPerson, format: .currency(code: Locale.current.currencyCode ?? "USD"))
             }
         }
